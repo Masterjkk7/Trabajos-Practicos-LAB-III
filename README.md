@@ -1,4 +1,4 @@
-# Trabajos-Practico
-Trabajos Práctico LAB III - UBP - Ingenieria Informática
+# Trabajos-Practicos
+Trabajos Prácticos LAB III - UBP - Ingenieria Informática
 
 Franco Geremia
