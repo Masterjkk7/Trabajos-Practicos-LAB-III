@@ -25,7 +25,7 @@ La biblioteca **Pillow** contiene toda la funcionalidad básica de procesamiento
 
 ## Pillow - Configuración del entorno
 ### Instalación de Pillow usando pip
-Para instalar Pillow usando pip, simplemente ejecute el siguiente comando en su símbolo del sistema:
+Para instalar Pillow usando pip, simplemente ejecute el siguiente comando en la linea de comandos de su sistema:
 ```
 python -m pip install pip
 python -m pip install pillow
@@ -249,3 +249,8 @@ while opcion != 12:
     else:
         print("No ingreso una opcion valida")
 ```
+
+##### Links útiles:
+* Pillow: https://pillow.readthedocs.io/en/stable/index.html
+* Guía rápida de Pillow: https://www.tutorialspoint.com/python_pillow/python_pillow_quick_guide.htm
+* Editor de Markdown: https://dillinger.io/
