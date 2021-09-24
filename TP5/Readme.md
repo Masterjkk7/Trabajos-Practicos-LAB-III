@@ -7,7 +7,7 @@ La aplicación me debe permitir consultar por rango de fechas (tengo que poder i
 
 ### Instruciones
 
-##### 1) Leer el archivo "requirements.txt"
+##### 1) Crear un entorno virutal que respete a "requirements.txt"
 ##### 2) Ejecutar el archivo "main.py"
 ##### 3) Elegir la opcion deseada en el menu (analizar un periodo o toda la pandemia)
 ##### 4) Respetar el formato de fechas (Ej: 2020-08-03)
