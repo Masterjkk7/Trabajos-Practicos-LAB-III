@@ -18,7 +18,7 @@ class Tipo(models.Model):
 class Pokemon(models.Model):
     nombre = models.CharField(max_length=40)
     habilidad = models.CharField(max_length=40)
-    tipo = models.ManyToManyField(Tipo, verbose_name='Tipos', related_name='mis_pokemones')
+    tipo = models.ManyToManyField(Tipo, related_name='mis_pokemones')
     numero = models.IntegerField()   
     apariencia = models.ImageField(upload_to='sprites/')
 
@@ -31,18 +31,40 @@ class Pokemon(models.Model):
 
     def get_apariencia(self):
         if self.apariencia:
-            return format_html("<img style='width:100px'; src='{}'/>".format(self.apariencia.url))
+            return format_html("<img style='width:150px'; src='{}'/>".format(self.apariencia.url))
         else:
-            return format_html("<img style='width:100px'; src='sprites/default.png'/>")
+            return format_html("<img style='width:150px'; src='sprites/default.png'/>")
 
     get_apariencia.short_description = "Imagen"
 
+class Lugar(models.Model):
+    nombre = models.CharField(max_length=100)
+    foto = models.ImageField(upload_to='lugares/')
+
+    def __str__(self) -> str:
+        return self.nombre
+
+    class Meta:
+        verbose_name = 'Lugar'
+        verbose_name_plural = 'Lugares'
+
+    def get_foto(self):
+        if self.foto:
+            return format_html("<img style='width:150px'; src='{}'/>".format(self.foto.url))
+        else:
+            return format_html("<img style='width:150px'; src='foto/default.png'/>")
+
+    get_foto.short_description = "Foto"
+
+
 class Batalla(models.Model):
     luchadores = models.ManyToManyField(Pokemon)
+    ganador = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name='ganador', null=True)
+    lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE, related_name='lugar', null=True)
     fecha = models.DateField(null=True)
 
-    """def __str__(self) -> str:
-        return self.luchadores.nombre"""
+    def __str__(self) -> str:
+        return str(self.fecha)
 
     class Meta:
         verbose_name = 'Batalla'
