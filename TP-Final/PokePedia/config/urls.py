@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from config import settings
+from pokepedia.views import get_pokemon
 
 #admin.site.site_header  =  "Enciclopedia Pokemon"  
 #admin.site.site_title  =  "Enciclopedia Pokemon"
@@ -24,6 +25,7 @@ admin.site.index_title  =  "Enciclopedia Pokemon"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', get_pokemon),
 ]
 
 if settings.DEBUG:

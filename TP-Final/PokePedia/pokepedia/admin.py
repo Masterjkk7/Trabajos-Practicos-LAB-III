@@ -4,9 +4,16 @@ from  django.contrib.auth.models  import  Group
 
 admin.site.unregister(Group)
 
+class TipoAdmin(admin.ModelAdmin):
+    list_filter = ['nombre']
+    search_fields = ['nombre']
+
 class PokemonAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'numero', 'habilidad', 'get_tipos', 'get_apariencia')
     list_filter = ('nombre', 'numero', 'tipo')
+    search_fields = ['nombre', 'numero', 'tipo__nombre']
+    filter_horizontal = ('tipo',)
+    readonly_fields = ('get_apariencia',)
 
     fieldsets = (
         (None, {
@@ -14,10 +21,7 @@ class PokemonAdmin(admin.ModelAdmin):
                 
             ),
         }),
-    )  
-
-    filter_horizontal = ('tipo',)
-    readonly_fields = ('get_apariencia',)
+    )     
 
     def get_tipos(self, obj):
         return " - ".join([n.nombre for n in obj.tipo.all()])
@@ -26,6 +30,8 @@ class PokemonAdmin(admin.ModelAdmin):
 
 class LugarAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'get_foto')
+    list_filter = ['nombre']
+    search_fields = ['nombre']
 
     fieldsets = (
         (None, {
@@ -41,6 +47,7 @@ class BatallaAdmin(admin.ModelAdmin):
     list_display = ('fecha', 'lugar','get_luchadores', 'ganador')
     list_filter = ('fecha', 'luchadores', 'ganador', 'lugar')
     filter_horizontal = ('luchadores',)
+    search_fields = ['fecha', 'lugar__nombre', 'luchadores__nombre', 'ganador__nombre']
 
     def get_luchadores(self, obj):
         return " - ".join([n.nombre for n in obj.luchadores.all()])
@@ -49,7 +56,7 @@ class BatallaAdmin(admin.ModelAdmin):
 
 # Register your models here.
 
-admin.site.register(Tipo,)
+admin.site.register(Tipo, TipoAdmin)
 admin.site.register(Pokemon, PokemonAdmin,)
 admin.site.register(Batalla, BatallaAdmin,)
 admin.site.register(Lugar, LugarAdmin)
