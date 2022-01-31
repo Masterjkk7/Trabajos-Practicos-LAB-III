@@ -1,0 +1,6 @@
+<form action="get_pokemon" method="post">
+    {% csrf_token %}
+    <input type="text" class="form-control" id="pokemon" placeholder="Ingrese el nombre de un Pokemon" value=""
+           name='pokemon_name' size="50"> 
+    <input type="submit" value="Submit">
+ </form>

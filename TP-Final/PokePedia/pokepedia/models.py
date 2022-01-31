@@ -33,7 +33,7 @@ class Pokemon(models.Model):
         if self.apariencia:
             return format_html("<img style='width:150px'; src='{}'/>".format(self.apariencia.url))
         else:
-            return format_html("<img style='width:150px'; src='sprites/default.png'/>")
+            return format_html("<img style='width:150px'; src='/media/sprites/default.png'/>")
 
     get_apariencia.short_description = "Imagen"
 
