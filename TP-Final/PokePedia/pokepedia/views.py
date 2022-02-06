@@ -1,22 +1,18 @@
 from asyncio.windows_events import NULL
 from ctypes.wintypes import BYTE
-from io import BytesIO
 from re import X
 from urllib.request import urlopen
-from django.forms import ImageField
 import requests
 from django.shortcuts import redirect, render
-from django.http import HttpRequest, HttpResponse
 from .models import Pokemon, Tipo
 from django.core.exceptions import ObjectDoesNotExist
-from PIL import Image
 
 # Create your views here.
 
 def main_page(request):
     return render(request, 'pokepedia/search.html')
 
-def get_pokemon(request: HttpRequest):
+def get_pokemon(request):
     try:
         pokemon_name = request.POST.get('pokemon_name')
         response = requests.get('https://pokeapi.co/api/v2/pokemon/'+pokemon_name.lower())
@@ -25,7 +21,7 @@ def get_pokemon(request: HttpRequest):
             try:
                 x = Pokemon.objects.get(nombre__icontains=name)
                 print(x)
-                context = context = {'pokemon' : x}
+                context = {'pokemon' : x}
             except ObjectDoesNotExist:
                 print("El pokemon "+name+" no esta registrado")
                 id = response.json()["id"]

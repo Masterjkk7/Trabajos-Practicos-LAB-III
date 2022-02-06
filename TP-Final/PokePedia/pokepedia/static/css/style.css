@@ -58,7 +58,7 @@
     width: 100%;
     height: auto;
     background-color: #ffdd90;
-    background-image: url('../images/fondo-alt.jpg'); /*url('../images/fondo.png');*/
+    background-image: url('../images/fondo-alt.jpg');
     background-size: cover;
     background-attachment: scroll;
     background-repeat: no-repeat;
