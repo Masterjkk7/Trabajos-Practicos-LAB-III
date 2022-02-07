@@ -12,17 +12,22 @@
 </head>
 <body>
        <!--Navbar-->
-       <nav class="navbar navbar-light bg-warning">
-              <div class="container-fluid" >
-                     <a class="navbar-brand" href="admin/">
+       <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+              <div class="container-fluid">
+                     <a class="navbar-brand" href="http://127.0.0.1:8000/">
                             <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-text-top">
                             PokePedia
-                     </a>
+                     </a>                          
+                     <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                   <a class="nav-link" href="http://127.0.0.1:8000/admin/">Admin</a>
+                            </li>
+                     </ul>                     
                      <form action="get_pokemon" method="post" class="d-flex">
                             {% csrf_token %}
                             <input type="text" name='pokemon_name' placeholder="Ingrese el nombre/numero de un Pokemon" class="form-control me-2" size="40">
                             <button class="btn btn-outline-dark" type="submit">Buscar</button>
-                     </form>
+                     </form>        
               </div>
        </nav>
 
@@ -45,9 +50,24 @@
               </div>
        </div>
        {% endif %}
-       
+
        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </body>
+
+<!--Error POST-->
+{% if error_post %}
+<script>
+       window.alert("Ocurrió un error al realizar la búsqueda.");
+</script>
+{% endif %}
+
+<!--Error API-->
+{% if error_api %}
+<script>
+       window.alert("No se obtuvieron resultados.");
+</script>
+{% endif %}
+
 </html>
