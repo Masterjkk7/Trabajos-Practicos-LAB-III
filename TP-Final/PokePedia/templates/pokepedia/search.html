@@ -31,6 +31,52 @@
               </div>
        </nav>
 
+       <!--Nuevo Pokemon-->
+       <!--
+       <div style="display: none;">
+              <form action="new_pokemon" method="post" class="mx-5">
+                     {% csrf_token %}
+                     <div class="form-group row my-2">
+                            <label for="numero" class="col-sm-2 col-form-label">Número:</label>
+                            <div class="col-sm-10">
+                                   <input type="number" class="form-control" id="numero" placeholder="Inserte el número de su pokemon" min="1">
+                            </div>
+                     </div>
+                     <div class="form-group row my-2">
+                            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
+                            <div class="col-sm-10">
+                                   <input type="text" class="form-control" id="nombre" placeholder="Inserte el nombre de su pokemon">
+                            </div>
+                     </div>
+                     <div class="form-group row my-2">
+                            <label for="tipo1" class="col-sm-2 col-form-label">Tipo 1:</label>
+                            <div class="col-sm-10">
+                                   <input type="text" class="form-control" id="tipo1" placeholder="Inserte el primer tipo de su pokemon">
+                            </div>
+                     </div>
+                     <div class="form-group row my-2">
+                            <label for="tipo2" class="col-sm-2 col-form-label">Tipo 2:</label>
+                            <div class="col-sm-10">
+                                   <input type="text" class="form-control" id="tipo2" placeholder="Inserte el segundo tipo de su pokemon (si es que lo tiene)">
+                            </div>
+                     </div>
+                     <div class="form-group row my-2">
+                            <label for="habilidad" class="col-sm-2 col-form-label">Habilidad:</label>
+                            <div class="col-sm-10">
+                                   <input type="text" class="form-control" id="habilidad" placeholder="Inserte el nombre de la habilidad de su pokemon">
+                            </div>
+                     </div>
+                     <div class="form-group row my-2">
+                            <label for="apariencia" class="col-sm-2 col-form-label">Apariencia:</label>
+                            <div class="col-sm-10">
+                                   <input type="file" class="form-control-file" id="apariencia">
+                            </div>
+                     </div>
+                     <button class="btn btn-outline-dark" type="submit">Registrar</button>
+              </form>
+       </div> 
+       -->
+
        <!--Card-->
        {% if pokemon %}
        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
@@ -59,14 +105,14 @@
 <!--Error POST-->
 {% if error_post %}
 <script>
-       window.alert("Ocurrió un error al realizar la búsqueda.");
+       alert("Ocurrió un error al realizar la búsqueda.");
 </script>
 {% endif %}
 
 <!--Error API-->
 {% if error_api %}
 <script>
-       window.alert("No se obtuvieron resultados.");
+       alert("No se obtuvieron resultados.");
 </script>
 {% endif %}
 

@@ -80,5 +80,4 @@ def get_pokemon(request):
         #raise SystemExit(e)
         print("ERROR POST")
         context = {'error_post' : "error_post"}
-        return render(request, 'pokepedia/search.html', context) 
-    
+        return render(request, 'pokepedia/search.html', context)
