@@ -13,16 +13,23 @@ def main_page(request):
     return render(request, 'pokepedia/search.html')
 
 def get_pokemon(request):
-    try:
-        pokemon_name = request.POST.get('pokemon_name')
-        response = requests.get('https://pokeapi.co/api/v2/pokemon/'+pokemon_name.lower())
-        if response.status_code == 200:
-            name = response.json()["name"]
+    try:        
+        pokemon = request.POST.get('pokemon')
+        try:
             try:
-                x = Pokemon.objects.get(nombre__icontains=name)
+                x = Pokemon.objects.get(nombre__icontains=pokemon)
                 print("El pokemon "+x.nombre+" ya esta registrado")
                 context = {'pokemon' : x}
+                return render(request, 'pokepedia/search.html', context)
             except ObjectDoesNotExist:
+                x = Pokemon.objects.get(numero__icontains=pokemon)
+                print("El pokemon "+x.nombre+" ya esta registrado")
+                context = {'pokemon' : x}
+                return render(request, 'pokepedia/search.html', context)
+        except:
+            response = requests.get('https://pokeapi.co/api/v2/pokemon/'+pokemon.lower())
+            if response.status_code == 200:
+                name = response.json()["name"]
                 print("El pokemon "+name+" no esta registrado")
                 id = response.json()["id"]
                 ability = response.json()["abilities"][0]["ability"]["name"]
@@ -69,15 +76,15 @@ def get_pokemon(request):
                 context = {'pokemon' : x}
                 print("Se registro el pokemon en la base de datos") 
                 return render(request, 'pokepedia/search.html', context)
-            print("Se encontro el pokemon en la base de datos") 
-            return render(request, 'pokepedia/search.html', context)
-            #return redirect('http://127.0.0.1:8000/admin/pokepedia/pokemon/'+str(x.id)+'/change/')
-        else:
-            print("ERROR API")
-            context = {'error_api' : "error_api"}
-            return render(request, 'pokepedia/search.html', context)
-    except requests.exceptions.RequestException as e:
-        #raise SystemExit(e)
+            else:
+                print("ERROR API")
+                context = {'error_api' : "error_api"}
+                return render(request, 'pokepedia/search.html', context)
+    except:
         print("ERROR POST")
         context = {'error_post' : "error_post"}
         return render(request, 'pokepedia/search.html', context)
+
+#requests.exceptions.RequestException as e:
+#raise SystemExit(e)
+#return redirect('http://127.0.0.1:8000/admin/pokepedia/pokemon/'+str(x.id)+'/change/')

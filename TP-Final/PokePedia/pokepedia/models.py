@@ -18,7 +18,7 @@ class Tipo(models.Model):
 class Pokemon(models.Model):
     nombre = models.CharField(max_length=40)
     habilidad = models.CharField(max_length=40)
-    tipo = models.ManyToManyField(Tipo, related_name='mis_pokemones')
+    tipo = models.ManyToManyField(Tipo)
     numero = models.IntegerField()   
     apariencia = models.ImageField(upload_to='sprites/')
 
@@ -60,7 +60,7 @@ class Lugar(models.Model):
 class Batalla(models.Model):
     luchadores = models.ManyToManyField(Pokemon)
     ganador = models.ForeignKey(Pokemon, on_delete=models.CASCADE, related_name='ganador', null=True)
-    lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE, related_name='lugar', null=True)
+    lugar = models.ForeignKey(Lugar, on_delete=models.CASCADE, null=True)
     fecha = models.DateField(null=True)
 
     def __str__(self) -> str:

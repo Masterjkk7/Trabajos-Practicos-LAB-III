@@ -32,6 +32,7 @@ class LugarAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'get_foto')
     list_filter = ['nombre']
     search_fields = ['^nombre']
+    readonly_fields = ('get_foto',)
 
     fieldsets = (
         (None, {
@@ -40,8 +41,6 @@ class LugarAdmin(admin.ModelAdmin):
             ),
         }),
     )  
-
-    readonly_fields = ('get_foto',)
 
 class BatallaAdmin(admin.ModelAdmin):
     list_display = ('fecha', 'lugar','get_luchadores', 'ganador')
