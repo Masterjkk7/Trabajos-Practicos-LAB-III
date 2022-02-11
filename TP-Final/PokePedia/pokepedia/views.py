@@ -17,18 +17,31 @@ def get_pokemon(request):
         pokemon = request.POST.get('pokemon')
         try:
             try:
-                x = Pokemon.objects.get(nombre__icontains=pokemon)
-                print("El pokemon "+x.nombre+" ya esta registrado")
-                context = {'pokemon' : x}
+                p = Pokemon.objects.get(nombre__icontains=pokemon)
+                print("El pokemon "+p.nombre+" ya esta registrado")
+                context = {'pokemon' : p}
                 return render(request, 'pokepedia/search.html', context)
             except ObjectDoesNotExist:
-                x = Pokemon.objects.get(numero__icontains=pokemon)
-                print("El pokemon "+x.nombre+" ya esta registrado")
-                context = {'pokemon' : x}
+                p = Pokemon.objects.get(numero__icontains=pokemon)
+                print("El pokemon "+p.nombre+" ya esta registrado")
+                context = {'pokemon' : p}
                 return render(request, 'pokepedia/search.html', context)
         except:
+            #return get_pokemon_api(request, pokemon)
+            context = {'dato_api' : pokemon.capitalize()}
+            return render(request, 'pokepedia/search.html', context)
+    except:
+        print("ERROR POST")
+        context = {'error' : "error"}
+        return render(request, 'pokepedia/search.html', context)
+
+def get_pokemon_api(request):
+    try:
+        pokemon = request.POST.get('pokemon')
+        try:
             response = requests.get('https://pokeapi.co/api/v2/pokemon/'+pokemon.lower())
             if response.status_code == 200:
+                print(response.json())
                 name = response.json()["name"]
                 print("El pokemon "+name+" no esta registrado")
                 id = response.json()["id"]
@@ -78,11 +91,15 @@ def get_pokemon(request):
                 return render(request, 'pokepedia/search.html', context)
             else:
                 print("ERROR API")
-                context = {'error_api' : "error_api"}
+                context = {'error' : "error"}
                 return render(request, 'pokepedia/search.html', context)
+        except:
+            print("ERROR API")
+            context = {'error' : "error"}
+            return render(request, 'pokepedia/search.html', context)
     except:
         print("ERROR POST")
-        context = {'error_post' : "error_post"}
+        context = {'error' : "error"}
         return render(request, 'pokepedia/search.html', context)
 
 #requests.exceptions.RequestException as e:

@@ -2,11 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-       <meta charset="UTF-8">
-       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
        <link rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css">
-       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
        <link rel="icon" type="image/x-icon" href="{% static '/images/icono.png' %}" />
        <title>Pokepedia</title>
 </head>
@@ -31,52 +32,6 @@
               </div>
        </nav>
 
-       <!--Nuevo Pokemon-->
-       <!--
-       <div style="display: none;">
-              <form action="new_pokemon" method="post" class="mx-5">
-                     {% csrf_token %}
-                     <div class="form-group row my-2">
-                            <label for="numero" class="col-sm-2 col-form-label">Número:</label>
-                            <div class="col-sm-10">
-                                   <input type="number" class="form-control" id="numero" placeholder="Inserte el número de su pokemon" min="1">
-                            </div>
-                     </div>
-                     <div class="form-group row my-2">
-                            <label for="nombre" class="col-sm-2 col-form-label">Nombre:</label>
-                            <div class="col-sm-10">
-                                   <input type="text" class="form-control" id="nombre" placeholder="Inserte el nombre de su pokemon">
-                            </div>
-                     </div>
-                     <div class="form-group row my-2">
-                            <label for="tipo1" class="col-sm-2 col-form-label">Tipo 1:</label>
-                            <div class="col-sm-10">
-                                   <input type="text" class="form-control" id="tipo1" placeholder="Inserte el primer tipo de su pokemon">
-                            </div>
-                     </div>
-                     <div class="form-group row my-2">
-                            <label for="tipo2" class="col-sm-2 col-form-label">Tipo 2:</label>
-                            <div class="col-sm-10">
-                                   <input type="text" class="form-control" id="tipo2" placeholder="Inserte el segundo tipo de su pokemon (si es que lo tiene)">
-                            </div>
-                     </div>
-                     <div class="form-group row my-2">
-                            <label for="habilidad" class="col-sm-2 col-form-label">Habilidad:</label>
-                            <div class="col-sm-10">
-                                   <input type="text" class="form-control" id="habilidad" placeholder="Inserte el nombre de la habilidad de su pokemon">
-                            </div>
-                     </div>
-                     <div class="form-group row my-2">
-                            <label for="apariencia" class="col-sm-2 col-form-label">Apariencia:</label>
-                            <div class="col-sm-10">
-                                   <input type="file" class="form-control-file" id="apariencia">
-                            </div>
-                     </div>
-                     <button class="btn btn-outline-dark" type="submit">Registrar</button>
-              </form>
-       </div> 
-       -->
-
        <!--Card-->
        {% if pokemon %}
        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
@@ -97,23 +52,62 @@
        </div>
        {% endif %}
 
-       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+       <!--Buscar en la API-->
+       {% if dato_api %}
+       <div class="modal fade" id="api_modal" tabindex="-1" role="dialog" aria-labelledby="error_modal_label" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                     <div class="modal-content border-dark">
+                            <div class="modal-header bg-warning">
+                                   <h5 class="modal-title" id="api_modal_label">Pokemon no registrado</h5>
+                                   <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#api_modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                            Desea buscarlo en la API?
+                            <form id="form_api" action="get_pokemon_api" method="post" class="d-flex">
+                                   {% csrf_token %}
+                                   <input type="text" name='pokemon' value="{{ dato_api }}" placeholder="{{ dato_api }}" class="form-control mt-2" readonly>
+                            </form>
+                            </div>
+                            <div class="modal-footer">
+                                   <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#api_modal">Cerrar</button>
+                                   <button class="btn btn-outline-warning" type="submit" form="form_api">Buscar</button>
+                            </div>
+                     </div>
+              </div>
+       </div>
+       <script>
+              $(function()
+              {
+                     $('#api_modal').modal('show');
+              }) 
+       </script>
+       {% endif %}
+
+       <!--Error-->
+       {% if error %}
+       <div class="modal fade" id="error_modal" tabindex="-1" role="dialog" aria-labelledby="error_modal_label" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                     <div class="modal-content border-dark">
+                            <div class="modal-header bg-warning">
+                                   <h5 class="modal-title" id="error_modal_label">ERROR</h5>
+                                   <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#error_modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                            No se obtuvieron resultados.
+                            </div>
+                            <div class="modal-footer">
+                                   <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#error_modal">Cerrar</button>
+                            </div>
+                     </div>
+              </div>
+       </div>
+       <script>
+              $(function()
+              {
+                     $('#error_modal').modal('show');
+              }) 
+       </script>
+       {% endif %}
 </body>
-
-<!--Error POST-->
-{% if error_post %}
-<script>
-       alert("Ocurrió un error al realizar la búsqueda.");
-</script>
-{% endif %}
-
-<!--Error API-->
-{% if error_api %}
-<script>
-       alert("No se obtuvieron resultados.");
-</script>
-{% endif %}
 
 </html>

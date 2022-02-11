@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from config import settings
-from pokepedia.views import get_pokemon, main_page
+from pokepedia.views import main_page, get_pokemon, get_pokemon_api
 
 admin.site.index_title  =  "Enciclopedia Pokemon"
 
@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main_page),
     path('get_pokemon', get_pokemon),
+    path('get_pokemon_api', get_pokemon_api),
 ]
 
 if settings.DEBUG:
