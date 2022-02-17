@@ -2,7 +2,7 @@ from asyncio.windows_events import NULL
 from ctypes.wintypes import BYTE
 from re import X
 from urllib.request import urlopen
-import requests, json
+import requests
 from django.shortcuts import redirect, render
 from .models import Pokemon, Tipo
 from django.core.exceptions import ObjectDoesNotExist
@@ -41,7 +41,7 @@ def get_pokemon_api(request):
         try:
             response = requests.get('https://pokeapi.co/api/v2/pokemon/'+pokemon.lower())
             if response.status_code == 200:
-                print(json.dumps(response.json(), indent=3))
+                print(response.json())
                 name = response.json()["name"]
                 print("El pokemon "+name+" no esta registrado")
                 id = response.json()["id"]

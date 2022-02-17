@@ -42,7 +42,7 @@
                             </div>
                             <div class="col-md-8">
                                    <div class="card-body" style="font-size: 55px;">
-                                          <p class="card-title text-warning">{{ pokemon.numero }} - {{ pokemon.nombre }}
+                                          <p class="card-title text-warning">ID: {{ pokemon.numero }} - {{ pokemon.nombre }}
                                                  <button class="btn btn-outline-warning" id="aux">JSON</button>
                                           </p> 
                                           <p class="card-text text-white">Type: {% for x in pokemon.tipo.all %}{{ x }} {% endfor %}</p>
@@ -85,7 +85,7 @@
                             </div>
                             <div class="col-md-8">
                                    <div class="card-body" style="font-size: 55px;">
-                                          <p class="card-title text-warning">{{ pokemon_db.numero }} - {{ pokemon_db.nombre }}</p> 
+                                          <p class="card-title text-warning">ID: {{ pokemon_db.numero }} - {{ pokemon_db.nombre }}</p> 
                                           <p class="card-text text-white">Type: {% for x in pokemon_db.tipo.all %}{{ x }} {% endfor %}</p>
                                           <p class="card-text text-white">Ability: {{ pokemon_db.habilidad }}</p>
                                    </div>
