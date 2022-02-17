@@ -33,7 +33,7 @@
        </nav>
 
        <!--Card-->
-       {% if pokemon %}
+       {% if pokemon and response %}
        <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
               <div class="card bg-dark border-warning">
                      <div class="row no-gutters">
@@ -42,9 +42,52 @@
                             </div>
                             <div class="col-md-8">
                                    <div class="card-body" style="font-size: 55px;">
-                                          <p class="card-title text-warning">{{ pokemon.numero }} - {{ pokemon.nombre }}</p>
+                                          <p class="card-title text-warning">{{ pokemon.numero }} - {{ pokemon.nombre }}
+                                                 <button class="btn btn-outline-warning" id="aux">JSON</button>
+                                          </p> 
                                           <p class="card-text text-white">Type: {% for x in pokemon.tipo.all %}{{ x }} {% endfor %}</p>
                                           <p class="card-text text-white">Ability: {{ pokemon.habilidad }}</p>
+                                   </div>
+                            </div>
+                     </div>
+              </div>
+       </div>
+       <div class="modal fade" id="json_modal" tabindex="-1" role="dialog" aria-labelledby="json_modal_label" aria-hidden="true" style="word-break: break-all;">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                     <div class="modal-content border-dark">
+                            <div class="modal-header bg-warning">
+                                   <h5 class="modal-title" id="json_modal_label">JSON</h5>
+                                   <button type="button" class="btn-close" data-bs-toggle="modal" data-bs-target="#json_modal" aria-label="Cerrar"></button>
+                            </div>
+                            <div class="modal-body">
+                            {{ response }}
+                            </div>
+                            <div class="modal-footer">
+                                   <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#json_modal">Cerrar</button>
+                            </div>
+                     </div>
+              </div>
+       </div>
+       <script>
+              $('#aux').on('click', function() 
+              {
+                     $('#json_modal').modal('show');
+              });
+       </script>
+       {% endif %}
+
+       {% if pokemon_db %}
+       <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+              <div class="card bg-dark border-warning">
+                     <div class="row no-gutters">
+                            <div class="col-md-4">
+                                   <img src="../media/{{ pokemon_db.apariencia }}" class="card-img ms-3">
+                            </div>
+                            <div class="col-md-8">
+                                   <div class="card-body" style="font-size: 55px;">
+                                          <p class="card-title text-warning">{{ pokemon_db.numero }} - {{ pokemon_db.nombre }}</p> 
+                                          <p class="card-text text-white">Type: {% for x in pokemon_db.tipo.all %}{{ x }} {% endfor %}</p>
+                                          <p class="card-text text-white">Ability: {{ pokemon_db.habilidad }}</p>
                                    </div>
                             </div>
                      </div>
@@ -54,7 +97,7 @@
 
        <!--Buscar en la API-->
        {% if dato_api %}
-       <div class="modal fade" id="api_modal" tabindex="-1" role="dialog" aria-labelledby="error_modal_label" aria-hidden="true">
+       <div class="modal fade" id="api_modal" tabindex="-1" role="dialog" aria-labelledby="api_modal_label" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                      <div class="modal-content border-dark">
                             <div class="modal-header bg-warning">
