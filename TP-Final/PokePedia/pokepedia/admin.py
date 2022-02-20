@@ -12,7 +12,9 @@ class PokemonAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'numero', 'habilidad', 'get_tipos', 'get_apariencia')
     list_filter = ('nombre', 'numero', 'tipo')
     search_fields = ['^nombre', '^numero', '^tipo__nombre']
-    filter_horizontal = ('tipo',)
+    # filter_horizontal = ('tipo',)
+    # ordering = ['nombre']
+    autocomplete_fields = ['tipo']  
     readonly_fields = ('get_apariencia',)
 
     fieldsets = (
@@ -26,7 +28,9 @@ class PokemonAdmin(admin.ModelAdmin):
     def get_tipos(self, obj):
         return " - ".join([n.nombre for n in obj.tipo.all()])
 
-    get_tipos.short_description = "Tipo"   
+    get_tipos.short_description = "Tipo"
+
+     
 
 class LugarAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'get_foto')
@@ -47,6 +51,7 @@ class BatallaAdmin(admin.ModelAdmin):
     list_filter = ('fecha', 'luchadores', 'ganador', 'lugar')
     filter_horizontal = ('luchadores',)
     search_fields = ['fecha', '^lugar__nombre', '^luchadores__nombre', '^ganador__nombre']
+    autocomplete_fields = ['luchadores', 'ganador', 'lugar']
 
     def get_luchadores(self, obj):
         return " - ".join([n.nombre for n in obj.luchadores.all()])

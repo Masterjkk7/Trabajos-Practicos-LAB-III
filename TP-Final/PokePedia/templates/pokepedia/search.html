@@ -43,7 +43,7 @@
                             <div class="col-md-8">
                                    <div class="card-body" style="font-size: 55px;">
                                           <p class="card-title text-warning">ID: {{ pokemon.numero }} - {{ pokemon.nombre }}
-                                                 <button class="btn btn-outline-warning" id="aux">JSON</button>
+                                                 <button class="btn btn-outline-warning" id="json">JSON</button>
                                           </p> 
                                           <p class="card-text text-white">Type: {% for x in pokemon.tipo.all %}{{ x }} {% endfor %}</p>
                                           <p class="card-text text-white">Ability: {{ pokemon.habilidad }}</p>
@@ -69,7 +69,7 @@
               </div>
        </div>
        <script>
-              $('#aux').on('click', function() 
+              $('#json').on('click', function() 
               {
                      $('#json_modal').modal('show');
               });

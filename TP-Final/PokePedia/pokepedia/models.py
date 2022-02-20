@@ -19,7 +19,7 @@ class Pokemon(models.Model):
     nombre = models.CharField(max_length=40)
     habilidad = models.CharField(max_length=40)
     tipo = models.ManyToManyField(Tipo)
-    numero = models.IntegerField()   
+    numero = models.PositiveIntegerField()   
     apariencia = models.ImageField(upload_to='sprites/')
 
     def __str__(self) -> str:
@@ -52,7 +52,7 @@ class Lugar(models.Model):
         if self.foto:
             return format_html("<img style='width:150px'; src='{}'/>".format(self.foto.url))
         else:
-            return format_html("<img style='width:150px'; src='foto/default.png'/>")
+            return format_html("<img style='width:150px'; src='/media/lugares/default.png'/>")
 
     get_foto.short_description = "Foto"
 
