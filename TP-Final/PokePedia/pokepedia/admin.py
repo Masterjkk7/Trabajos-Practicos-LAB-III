@@ -47,7 +47,7 @@ class LugarAdmin(admin.ModelAdmin):
     )  
 
 class BatallaAdmin(admin.ModelAdmin):
-    list_display = ('fecha', 'lugar','get_luchadores', 'ganador')
+    list_display = ('fecha','get_luchadores', 'ganador', 'lugar', 'get_lugar')
     list_filter = ('fecha', 'luchadores', 'ganador', 'lugar')
     filter_horizontal = ('luchadores',)
     search_fields = ['fecha', '^lugar__nombre', '^luchadores__nombre', '^ganador__nombre']
@@ -56,9 +56,12 @@ class BatallaAdmin(admin.ModelAdmin):
     def get_luchadores(self, obj):
         return " - ".join([n.nombre for n in obj.luchadores.all()])
 
-    get_luchadores.short_description = "Luchadores"   
+    get_luchadores.short_description = "Luchadores"
 
-# Register your models here.
+    def get_lugar(self, obj):
+        return obj.lugar.get_foto()
+
+    get_lugar.short_description = "Imagen Lugar"   
 
 admin.site.register(Tipo, TipoAdmin)
 admin.site.register(Pokemon, PokemonAdmin,)
