@@ -56,7 +56,10 @@ Se trata de una [interfaz](https://github.com/fabiocaccamo/django-admin-interfac
 
 8. Ingresar los siguientes comandos: `python manage.py makemigrations` y `pyton manage.py migrate`.
 
-9. Poner en marcha el servidor con: `python manage.py runserver`.
+9. Crear un usuario con: `python manage.py createsuperuser`
+
+10. Poner en marcha el servidor con: `python manage.py runserver`.
+
 
 ## Uso del sitio
 
