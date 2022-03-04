@@ -22,7 +22,7 @@ def get_pokemon(request):
                 context = {'pokemon_db' : p}
                 return render(request, 'pokepedia/search.html', context)
             except ObjectDoesNotExist:
-                p = Pokemon.objects.get(numero__icontains=pokemon)
+                p = Pokemon.objects.get(numero__exact=pokemon)
                 print("El pokemon "+p.nombre+" ya esta registrado")
                 context = {'pokemon_db' : p}
                 return render(request, 'pokepedia/search.html', context)
